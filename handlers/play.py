@@ -236,8 +236,7 @@ async def play(_, message: Message):
         position = await queues.put(message.chat.id, file=file_path)
         await message.reply_photo(
         photo="final.png", 
-        caption=f"🎵 **Music** masuk kedalam **antrian** 
-                  \n#️⃣ Antrian : {position}!",
+        caption=f"🎵 **Music** masuk kedalam **antrian** \n#️⃣ Antrian : {position}!",
         reply_markup=keyboard)
         os.remove("final.png")
         return await lel.delete()
