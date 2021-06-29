@@ -15,11 +15,13 @@ import converter
 from downloaders import youtube
 
 from config import BOT_NAME as bn, DURATION_LIMIT
+from config import que
 from helpers.filters import command, other_filters
 from helpers.decorators import errors
 from helpers.errors import DurationLimitError
 from helpers.gets import get_url, get_file_name
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from callsmusic.queues import queues
 
 import os
 import aiohttp
