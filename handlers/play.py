@@ -91,11 +91,9 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
 @Client.on_message(filters.command("playlist") & filters.group & ~filters.edited)
 async def playlist(client, message):
     global que
-    if message.chat.id in DISABLED_GROUPS:
-        return    
     queue = que.get(message.chat.id)
     if not queue:
-        await message.reply_text("Player is idle")
+        await message.reply_text("Tidak Ada Playlist")
     temp = []
     for t in queue:
         temp.append(t)
