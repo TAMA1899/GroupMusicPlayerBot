@@ -76,12 +76,10 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("etc/font.otf", 32)
-    draw.text((190, 550), f"Judul   : {title}", (255, 255, 255), font=font)
-    draw.text(
-        (190, 590), f"Duration: {duration}", (255, 255, 255), font=font
-    )
+    draw.text((190, 550), f"Judul   : {title}", (51, 215, 255), font=font)
+    draw.text((190, 590), f"Durasi  : {duration}", (255, 255, 255), font=font)
     draw.text((190, 630), f"Views   : {views}", (255, 255, 255), font=font)
-    draw.text((190, 670),
+    draw.text((205, 670),
         f"Request dari : {requested_by}",
         (255, 255, 255),
         font=font,
@@ -90,7 +88,32 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     os.remove("temp.png")
     os.remove("background.png")
 
-
+@Client.on_message(filters.command("playlist") & filters.group & ~filters.edited)
+async def playlist(client, message):
+    global que
+    if message.chat.id in DISABLED_GROUPS:
+        return    
+    queue = que.get(message.chat.id)
+    if not queue:
+        await message.reply_text("Player is idle")
+    temp = []
+    for t in queue:
+        temp.append(t)
+    now_playing = temp[0][0]
+    by = temp[0][1].mention(style="md")
+    msg = "**Daftar Music** yang sedang dimainkan di {}".format(message.chat.title)
+    msg += "\n\n❁ Judul : " + now_playing
+    msg += "\n❁ Request Dari : " + by
+    temp.pop(0)
+    if temp:
+        msg += "\n────────────────────────────"
+        msg += "\n**Daftar** Antrian :"
+        for song in temp:
+            name = song[0]
+            usr = song[1].mention(style="md")
+            msg += f"\n\nJudul : {name}"
+            msg += f"\nRequest Dari : {usr}\n"
+    await message.reply_text(msg)   
 
 
 @Client.on_message(command("play") & other_filters)
@@ -196,7 +219,7 @@ async def play(_, message: Message):
         for i in message.command[1:]:
             query += ' ' + str(i)
         print(query)
-        await lel.edit("🎵 **Musoc** ditemukan")
+        await lel.edit("🎵 **Music** ditemukan")
         ydl_opts = {"format": "bestaudio[ext=m4a]"}
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
@@ -253,9 +276,8 @@ async def play(_, message: Message):
         await message.reply_photo(
         photo="final.png",
         reply_markup=keyboard,
-        caption=f"📋 **Judul** : [{title}]({url}) \n⏱️ **Durasi** Music : {duration} \n👤 **Request** Dari : {}".format(
-        message.from_user.mention()
-        ),
+        caption=f"📋 **Judul** : [{title}]({url}) \n⏱️ **Durasi** Music : {duration} \n👤 **Request** Dari : {}",
+        
     )
         os.remove("final.png")
         return await lel.delete()
