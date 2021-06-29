@@ -98,8 +98,6 @@ async def playlist(client, message):
     if not queue:
         await message.reply_text("Tidak Ada Playlist")
     temp = []
-    for t in queue:
-        temp.append(t)
     now_playing = temp[0][0]
     by = temp[0][1].mention(style="md")
     msg = "**Daftar Music** yang sedang dimainkan di {}".format(message.chat.title)
@@ -133,8 +131,6 @@ async def p_cb(b, cb):
         if not queue:
             await cb.message.edit("Player is idle")
         temp = []
-        for t in queue:
-            temp.append(t)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style="md")
         msg = "<b>Daftar Music** yang sedang dimainkan di</b> {}".format(cb.message.chat.title)
