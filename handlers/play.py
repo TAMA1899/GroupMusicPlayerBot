@@ -76,13 +76,13 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("etc/font.otf", 32)
-    draw.text((190, 550), f"Title: {title}", (255, 255, 255), font=font)
+    draw.text((190, 550), f"Judul   : {title}", (255, 255, 255), font=font)
     draw.text(
         (190, 590), f"Duration: {duration}", (255, 255, 255), font=font
     )
-    draw.text((190, 630), f"Views: {views}", (255, 255, 255), font=font)
+    draw.text((190, 630), f"Views   : {views}", (255, 255, 255), font=font)
     draw.text((190, 670),
-        f"Added By: {requested_by}",
+        f"Request dari : {requested_by}",
         (255, 255, 255),
         font=font,
     )
@@ -97,7 +97,7 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
 @errors
 async def play(_, message: Message):
 
-    lel = await message.reply("🔄 **Tunggu** ...")
+    lel = await message.reply("🔄 **Tunggu**")
     sender_id = message.from_user.id
     sender_name = message.from_user.first_name
 
@@ -105,8 +105,8 @@ async def play(_, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        text="☕ ᴄʜᴀɴɴᴇʟ ☕",
-                        url="https://t.me/pejuangairdrops")
+                        text="☕ ᴜᴘᴅᴀᴛᴇ ☕",
+                        url="https://t.me/robotmusicupdate")
                    
                 ]
             ]
@@ -118,23 +118,25 @@ async def play(_, message: Message):
     if audio:
         if round(audio.duration / 60) > DURATION_LIMIT:
             raise DurationLimitError(
-                f"❌ **Durasi** Music terlalu panjang, **Lebih** dari {DURATION_LIMIT} menit!"
+                f"❌ **Durasi** Lagu Lebih dari {DURATION_LIMIT} menit. Tidak Diizinkan!"
             )
 
         file_name = get_file_name(audio)
         title = file_name
-        thumb_name = "https://telegra.ph/file/6370f12c2b3d547b196b8.png"
+        thumb_name = "https://telegra.ph/file/41126266cb7db2240e798.png"
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         views = "Locally added"
         keyboard = InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(
-                            text="☕ ᴄʜᴀɴɴᴇʟ ☕",
-                            url=f"https://t.me/pejuangairdrops")
-
-                    ]
+                    InlineKeyboardButton(
+                        text="☕ ᴜᴘᴅᴀᴛᴇ", url='https://t.me/robotmusicupdate'),
+                    InlineKeyboardButton(
+                        text="ᴏᴡɴᴇʀ ☕", 
+                        url='https://t.me/justthetech'),
+                    ],
+                    [InlineKeyboardButton(text="❌", callback_data="cls")]
                 ]
             )
         requested_by = message.from_user.first_name
@@ -158,34 +160,32 @@ async def play(_, message: Message):
             views = results[0]["views"]
             keyboard = InlineKeyboardMarkup(
                     [
-                        [
-                            InlineKeyboardButton(
-                                text="Watch On YouTube",
-                                url=f"{url}")
-
-                        ]
+                        [InlineKeyboardButton(
+                          text="☕ ᴜᴘᴅᴀᴛᴇ", url='https://t.me/robotmusicupdate'),
+                          InlineKeyboardButton(text="ᴏᴡɴᴇʀ ☕", url='https://t.me/justthetech'),
+                        ],
+                        [InlineKeyboardButton(text="❌", callback_data="cls")]
                     ]
                 )
         except Exception as e:
             title = "NaN"
-            thumb_name = "https://telegra.ph/file/6370f12c2b3d547b196b8.png"
+            thumb_name = "https://telegra.ph/file/41126266cb7db2240e798.png"
             duration = "NaN"
             views = "NaN"
             keyboard = InlineKeyboardMarkup(
                     [
-                        [
-                            InlineKeyboardButton(
-                                text="Watch On YouTube",
-                                url=f"https://youtube.com")
-
-                        ]
+                        [InlineKeyboardButton(
+                          text="☕ ᴜᴘᴅᴀᴛᴇ", url='https://t.me/robotmusicupdate'),
+                          InlineKeyboardButton(text="ᴏᴡɴᴇʀ ☕", url='https://t.me/justthetech'),
+                        ],
+                        [InlineKeyboardButton(text="❌", callback_data="cls")]
                     ]
                 )
         requested_by = message.from_user.first_name
         await generate_cover(requested_by, title, views, duration, thumbnail)     
         file_path = await converter.convert(youtube.download(url))
     else:
-        await lel.edit("🔎 **Mencari** music...")
+        await lel.edit("🔎 **Mencari**")
         sender_id = message.from_user.id
         user_id = message.from_user.id
         sender_name = message.from_user.first_name
@@ -196,7 +196,7 @@ async def play(_, message: Message):
         for i in message.command[1:]:
             query += ' ' + str(i)
         print(query)
-        await lel.edit("🎵 **Musoc** ditemukan...")
+        await lel.edit("🎵 **Musoc** ditemukan")
         ydl_opts = {"format": "bestaudio[ext=m4a]"}
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
@@ -213,7 +213,7 @@ async def play(_, message: Message):
 
         except Exception as e:
             lel.edit(
-                "🔹Music tidak ditemukan.\n🔹Ketik /help untuk daftar perintah play music."
+                "❁ **Music** tidak ditemukan.\n❁ Ketik /play (judul lagu).\n❁ Ketik /search (judul lagu)."
             )
             print(str(e))
             return
@@ -221,10 +221,18 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(
-                            text="Watch On YouTube",
-                            url=f"{url}")
-
+                    InlineKeyboardButton(
+                        text="☕ ᴜᴘᴅᴀᴛᴇ",
+                        url='https://t.me/robotmusicupdate'),
+                    InlineKeyboardButton(
+                        text="ᴏᴡɴᴇʀ ☕", 
+                        url='https://t.me/justthetech'),
+                
+                    ],
+                    [ 
+                    InlineKeyboardButton(
+                        text="❌",
+                        callback_data='cls'),
                     ]
                 ]
             )
@@ -236,7 +244,7 @@ async def play(_, message: Message):
         position = await queues.put(message.chat.id, file=file_path)
         await message.reply_photo(
         photo="final.png", 
-        caption=f"🎵 **Music** masuk kedalam **antrian** \n#️⃣ Antrian : {position}!",
+        caption=f"☕ **Judul** Music : [{title}]({url}) \n#️⃣ **Antrian** : {position}",
         reply_markup=keyboard)
         os.remove("final.png")
         return await lel.delete()
@@ -245,7 +253,7 @@ async def play(_, message: Message):
         await message.reply_photo(
         photo="final.png",
         reply_markup=keyboard,
-        caption="▶️ **Memutar** music request dari {}".format(
+        caption="📋 **Judul** : [{title}]({url}) \n⏱️ **Durasi** Music : {duration} \n👤 **Request** Dari : {}".format(
         message.from_user.mention()
         ),
     )
