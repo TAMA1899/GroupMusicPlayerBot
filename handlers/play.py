@@ -273,10 +273,12 @@ async def play(_, message: Message):
         return await lel.delete()
     else:
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
+        r_by = message.from_user
+        dur = duration
         await message.reply_photo(
         photo="final.png",
         reply_markup=keyboard,
-        caption=f"📋 **Judul** : [{title}]({url}) \n⏱️ **Durasi** Music : {duration} \n👤 **Request** Dari : {}",
+        caption=f"📋 **Judul** : [{title}]({url}) \n⏱️ **Durasi** Music : {dur} \n👤 **Request** Dari : {r_by.mention}",
         
     )
         os.remove("final.png")
