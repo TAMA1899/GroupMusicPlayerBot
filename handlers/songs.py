@@ -24,7 +24,7 @@ from youtube_dl.utils import (
 async def song(client, message):
     cap = "@JEBotZ"
     url = message.text.split(None, 1)[1]
-    rkp = await message.reply("Processing...")
+    rkp = await message.reply("Mencari...")
     if not url:
         await rkp.edit("**What's the song you want?**\nUsage`/song <song name>`")
     search = SearchVideos(url, offset=1, mode="json", max_results=1)
@@ -58,7 +58,7 @@ async def song(client, message):
         }
         song = True
     try:
-        await rkp.edit("Downloading...")
+        await rkp.edit("📥 **Sedang** Mendownload Lagu...")
         with YoutubeDL(opts) as rip:
             rip_data = rip.extract_info(url)
     except DownloadError as DE:
@@ -92,7 +92,7 @@ async def song(client, message):
         return
     time.time()
     if song:
-        await rkp.edit("Uploading...") #ImJanindu
+        await rkp.edit("🆗 Download Lagu Berhasil") #ImJanindu
         lol = "./etc/thumb.jpg"
         lel = await message.reply_audio(
                  f"{rip_data['id']}.mp3",
