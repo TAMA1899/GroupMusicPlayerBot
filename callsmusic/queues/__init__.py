@@ -1,4 +1,4 @@
-from MusicMan.services.callsmusic.queues.queues import (
+from callsmusic.queues.queues import (
     clear,
     get,
     is_empty,
