@@ -3,6 +3,11 @@ from os import path
 from pyrogram import Client, filters
 from pyrogram.types import Message, Voice
 
+from typing import Dict
+from pyrogram import Client
+from typing import Callable, Coroutine, Dict, List, Tuple, Union
+from helpers.admins import get_administrators
+
 from callsmusic import callsmusic, queues
 from os import path
 import requests
@@ -10,9 +15,18 @@ import aiohttp
 import youtube_dl
 from youtube_search import YoutubeSearch
 
+from pyrogram import filters, emoji
+from pyrogram.types import InputMediaPhoto
+from pyrogram.errors.exceptions.bad_request_400 import ChatAdminRequired
+from pyrogram.errors.exceptions.flood_420 import FloodWait
+import traceback
+import os
+import sys
+from callsmusic.callsmusic import client as USER
+from pyrogram.errors import UserAlreadyParticipant
+
 import converter
 from downloaders import youtube
-
 
 from config import BOT_NAME as bn, DURATION_LIMIT
 from config import que
@@ -33,6 +47,8 @@ import ffmpeg
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
+import json
+import wget
 chat_id = None
 
 
@@ -101,6 +117,8 @@ async def playlist(client, message):
     if not queue:
         await message.reply_text("Tidak Ada Playlist")
     temp = []
+    for t in queue:
+        temp.append(t)
     now_playing = temp[0][0]
     by = temp[0][1].mention(style="md")
     msg = "**Daftar Music** yang sedang dimainkan di {}".format(message.chat.title)
@@ -134,6 +152,8 @@ async def p_cb(b, cb):
         if not queue:
             await cb.message.edit("Player is idle")
         temp = []
+        for t in queue:
+            temp.append(t)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style="md")
         msg = "<b>Daftar Music** yang sedang dimainkan di</b> {}".format(cb.message.chat.title)
