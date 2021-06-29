@@ -10,7 +10,6 @@ import aiohttp
 import youtube_dl
 from youtube_search import YoutubeSearch
 
-
 import converter
 from downloaders import youtube
 
@@ -23,6 +22,9 @@ from helpers.errors import DurationLimitError
 from helpers.gets import get_url, get_file_name
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from callsmusic.queues import queues
+from cache.admins import admins as a
+from helpers.decorators import errors, authorized_users_only
+
 
 import os
 import aiohttp
@@ -31,6 +33,7 @@ import ffmpeg
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
+chat_id = None
 
 
 def transcode(filename):
