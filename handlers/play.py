@@ -116,7 +116,42 @@ async def playlist(client, message):
             msg += f"\nRequest Dari : {usr}\n"
     await message.reply_text(msg)   
 
+# ============================= Settings =========================================
 
+    
+    
+@Client.on_callback_query(filters.regex(pattern=r"^(playlist)$"))
+async def p_cb(b, cb):
+    global que
+    que.get(cb.message.chat.id)
+    type_ = cb.matches[0].group(1)
+    cb.message.chat.id
+    cb.message.chat
+    cb.message.reply_markup.inline_keyboard[1][0].callback_data
+    if type_ == "playlist":
+        queue = que.get(cb.message.chat.id)
+        if not queue:
+            await cb.message.edit("Player is idle")
+        temp = []
+        for t in queue:
+            temp.append(t)
+        now_playing = temp[0][0]
+        by = temp[0][1].mention(style="md")
+        msg = "<b>Daftar Music** yang sedang dimainkan di</b> {}".format(cb.message.chat.title)
+        msg += "\n❁ Judul : " + now_playing
+        msg += "\n❁ Request Dari : " + by
+        temp.pop(0)
+        if temp:
+            msg += "\n────────────────────────────"
+            msg += "\n**Daftar** Antrian :"
+            for song in temp:
+                name = song[0]
+                usr = song[1].mention(style="md")
+                msg += f"\nJudul : {name}"
+                msg += f"\nRequest Dari : {usr}\n"
+        await cb.message.edit(msg)
+        
+    
 @Client.on_message(command("play") & other_filters)
 @errors
 async def play(_, message: Message):
