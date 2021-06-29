@@ -244,7 +244,7 @@ async def play(_, message: Message):
         position = await queues.put(message.chat.id, file=file_path)
         await message.reply_photo(
         photo="final.png", 
-        caption=f"☕ **Judul** Music : [{title}]({url}) \n#️⃣ **Antrian** : {position}",
+        caption=f"☕ **Judul** : [{title}]({url}) \n#️⃣ **Antrian** : {position}",
         reply_markup=keyboard)
         os.remove("final.png")
         return await lel.delete()
@@ -253,7 +253,7 @@ async def play(_, message: Message):
         await message.reply_photo(
         photo="final.png",
         reply_markup=keyboard,
-        caption="📋 **Judul** : [{title}]({url}) \n⏱️ **Durasi** Music : {duration} \n👤 **Request** Dari : {}".format(
+        caption=f"📋 **Judul** : [{title}]({url}) \n⏱️ **Durasi** Music : {duration} \n👤 **Request** Dari : {}".format(
         message.from_user.mention()
         ),
     )
