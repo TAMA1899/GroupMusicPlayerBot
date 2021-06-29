@@ -74,7 +74,7 @@ async def skip(_, message: Message):
 
         await message.reply_text(f"➠ **Skip** ke music berikutnya! \n➠ **Judul** : **{qeue[0][0]}**")
         
-@Client.on_message(command("reload"))
+@Client.on_message(command("reload") & other_filters)
 @errors
 async def admincache(client, message: Message):
     set(
