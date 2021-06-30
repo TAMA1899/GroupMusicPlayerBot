@@ -52,6 +52,17 @@ import wget
 chat_id = None
 
 
+def cb_admin_check(func: Callable) -> Callable:
+    async def decorator(client, cb):
+        admemes = a.get(cb.message.chat.id)
+        if cb.from_user.id in admemes:
+            return await func(client, cb)
+        else:
+            await cb.answer('OH TIDAK BISA!', show_alert=True)
+            return
+    return decorator
+
+
 def transcode(filename):
     ffmpeg.input(filename).output("input.raw", format='s16le', acodec='pcm_s16le', ac=2, ar='48k').overwrite_output().run() 
     os.remove(filename)
@@ -139,35 +150,35 @@ async def playlist(client, message):
 
     
     
-@Client.on_callback_query(filters.regex(pattern=r"^(playlist)$"))
+@Client.on_callback_query(filters.regex(pattern=r'^(playlist)$'))
 async def p_cb(b, cb):
-    global que
-    que.get(cb.message.chat.id)
+    global que    
+    qeue = que.get(cb.message.chat.id)
     type_ = cb.matches[0].group(1)
-    cb.message.chat.id
-    cb.message.chat
-    cb.message.reply_markup.inline_keyboard[1][0].callback_data
-    if type_ == "playlist":
+    chat_id = cb.message.chat.id
+    m_chat = cb.message.chat
+    the_data = cb.message.reply_markup.inline_keyboard[1][0].callback_data
+    if type_ == 'playlist':           
         queue = que.get(cb.message.chat.id)
-        if not queue:
-            await cb.message.edit("Player is idle")
+        if not queue:   
+            await cb.message.edit('Player is idle')
         temp = []
         for t in queue:
             temp.append(t)
         now_playing = temp[0][0]
-        by = temp[0][1].mention(style="md")
-        msg = "<b>Daftar Music** yang sedang dimainkan di</b> {}".format(cb.message.chat.title)
-        msg += "\n❁ Judul : " + now_playing
-        msg += "\n❁ Request Dari : " + by
+        by = temp[0][1].mention(style='md')
+        msg = "**Now Playing** in {}".format(cb.message.chat.title)
+        msg += "\n🔹 "+ now_playing
+        msg += "\n🔹 Req by "+by
         temp.pop(0)
         if temp:
-            msg += "\n────────────────────────────"
-            msg += "\n**Daftar** Antrian :"
-            for song in temp:
-                name = song[0]
-                usr = song[1].mention(style="md")
-                msg += f"\nJudul : {name}"
-                msg += f"\nRequest Dari : {usr}\n"
+             msg += '\n───────────────────────────'
+             msg += '\n**Antrian**'
+             for song in temp:
+                 name = song[0]
+                 usr = song[1].mention(style='md')
+                 msg += f'\n🔹 {name}'
+                 msg += f'\n🔹 Req by {usr}\n'
         await cb.message.edit(msg)
         
     
