@@ -42,12 +42,12 @@ async def start(_, message: Message):
 
 @Client.on_message(filters.command("start") & ~filters.private & ~filters.channel)
 async def gstart(_, message: Message):
-      await message.reply_text("""**ROBOT MUSIC ONLINE** 📀""",
+      await message.reply_text("""✅ 𝐂𝐚𝐧𝐝𝐮𝐌𝐮𝐬𝐢𝐜𝐁𝐨𝐭 is online""",
       reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "☕ UPDATE ☕", url="https://t.me/robotmusicupdate")
+                        "❓ ɪɴꜰᴏ ᴜᴘᴅᴀᴛᴇ ❓", url="https://t.me/robotmusicupdate")
                 ]
             ]
         )
@@ -56,7 +56,7 @@ async def gstart(_, message: Message):
 @Client.on_message(filters.command("help") & ~filters.private & ~filters.channel)
 async def ghelp(_, message: Message):
     await message.reply_text(
-        f"""**Klick Tombol Untuk Daftar Perintah Bot**""",
+        f"""**Klick Tombol Dibawah Untuk Daftar Perintah Bot**""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
