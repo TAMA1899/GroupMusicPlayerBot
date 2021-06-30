@@ -48,7 +48,7 @@ def cb_admin_check(func: Callable) -> Callable:
         if cb.from_user.id in admemes:
             return await func(client, cb)
         else:
-            await cb.answer('OH TIDAK BISA!', show_alert=True)
+            await cb.answer('Kamu Tidak Diizinkan!', show_alert=True)
             return
     return decorator
 
@@ -102,7 +102,7 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     draw.text((190, 550), f"Judul   : {title}", (51, 215, 255), font=font)
     draw.text((190, 590), f"Durasi  : {duration}", (255, 255, 255), font=font)
     draw.text((190, 630), f"Views   : {views}", (255, 255, 255), font=font)
-    draw.text((205, 670),
+    draw.text((190, 630),
         f"Request dari : {requested_by}",
         (255, 255, 255),
         font=font,
@@ -169,27 +169,7 @@ async def ee(client, message):
         await message.reply(stats)              
     else:
         await message.reply('Tidak Ada Music')
-        
-@Client.on_message(
-    filters.command("player")
-    & filters.group
-    & ~ filters.edited
-)
-@authorized_users_only
-async def settings(client, message):
-    playing = None
-    if message.chat.id in callsmusic.pytgcalls.active_calls:
-        playing = True
-    queue = que.get(message.chat.id)
-    stats = updated_stats(message.chat, queue)
-    if stats:
-        if playing:
-            await message.reply(stats, reply_markup=r_ply('pause'))
-            
-        else:
-            await message.reply(stats, reply_markup=r_ply('play'))
-    else:
-        await message.reply('Tidak Ada Music')        
+               
     
 @Client.on_callback_query(filters.regex(pattern=r'^(playlist)$'))
 async def p_cb(b, cb):
