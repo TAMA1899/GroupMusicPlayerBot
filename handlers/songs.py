@@ -22,11 +22,11 @@ from youtube_dl.utils import (
 
 @Client.on_message(filters.command("song") & ~filters.edited)
 async def song(client, message):
-    cap = "@JEBotZ"
+    cap = "**✅ Download Lagu Berhasil**"
     url = message.text.split(None, 1)[1]
-    rkp = await message.reply("Mencari...")
+    rkp = await message.reply("🔄 **Mencari**")
     if not url:
-        await rkp.edit("**What's the song you want?**\nUsage`/song <song name>`")
+        await rkp.edit("**Cari Lagu?**\nKetik /song (judul lagu)`")
     search = SearchVideos(url, offset=1, mode="json", max_results=1)
     test = search.result()
     p = json.loads(test)
@@ -34,7 +34,7 @@ async def song(client, message):
     try:
         url = q[0]["link"]
     except BaseException:
-        return await rkp.edit("Failed to find that song.")
+        return await rkp.edit("❌ Lagu Tidak Ditemukan.")
     type = "audio"
     if type == "audio":
         opts = {
@@ -58,7 +58,7 @@ async def song(client, message):
         }
         song = True
     try:
-        await rkp.edit("📥 **Sedang** Mendownload Lagu...")
+        await rkp.edit("🎵 **Lagu Ditemukan**")
         with YoutubeDL(opts) as rip:
             rip_data = rip.extract_info(url)
     except DownloadError as DE:
@@ -92,7 +92,7 @@ async def song(client, message):
         return
     time.time()
     if song:
-        await rkp.edit("🆗 Download Lagu Berhasil") #ImJanindu
+        await rkp.edit("📥 Sedang Mendownload Lagu") 
         lol = "./etc/thumb.jpg"
         lel = await message.reply_audio(
                  f"{rip_data['id']}.mp3",
