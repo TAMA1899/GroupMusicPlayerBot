@@ -72,10 +72,11 @@ async def skip(_, message: Message):
                 callsmusic.queues.get(message.chat.id)["file"]
             )
 
-        await message.reply_text(f"➠ **Skip** ke music berikutnya! \n➠ **Judul** : **{qeue[0][0]}**")
+        await message.reply_text(f"⏩ **Skip** ke music berikutnya!")
         
 @Client.on_message(command("reload") & other_filters)
 @errors
+@authorized_users_only
 async def admincache(client, message: Message):
     set(
         message.chat.id,
