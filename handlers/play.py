@@ -205,9 +205,7 @@ async def p_cb(b, cb):
 @Client.on_message(command("play") & other_filters)
 async def play(_, message: Message):
     global que
-    global useer
-    if message.chat.id in DISABLED_GROUPS:
-        return    
+    global useer   
     lel = await message.reply("🔄 **Tunggu**")
     administrators = await get_administrators(message.chat)
     chid = message.chat.id
