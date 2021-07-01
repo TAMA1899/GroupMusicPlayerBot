@@ -12,6 +12,8 @@ BOT_TOKEN = getenv("BOT_TOKEN", "1858649461:AAEJu3U-Vnc_vvogVaAiskcN1PUGKQROTDg"
 API_ID = int(getenv("API_ID", "3371945"))
 API_HASH = getenv("API_HASH", "880695522786b34a4e943902db6e4f64")
 
+BOT_NAME = getenv("BOT_NAME", "𝐂𝐚𝐧𝐝𝐮𝐌𝐮𝐬𝐢𝐜")
+
 DURATION_LIMIT = int(getenv("DURATION_LIMIT", "10"))
 
 COMMAND_PREFIXES = list(getenv("COMMAND_PREFIXES", "/ !").split())
