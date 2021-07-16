@@ -16,3 +16,5 @@ python-arq
 future
 psutil
 wget
+python-decouple
+telethon==1.22.0
