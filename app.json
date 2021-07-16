@@ -55,5 +55,10 @@
             "description": "True/False. If the user must be muted on sending a message without being in the channel.",
             "value": "True"
     }
+  },
+  "buildpacks": [
+        {
+            "url": "heroku/python"
+        }
   }
 }
