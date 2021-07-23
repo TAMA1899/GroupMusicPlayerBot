@@ -10,7 +10,7 @@ async def start(_, message: Message):
     await message.reply_sticker("CAACAgQAAx0CTv65QgABBfJlYF6VCrGMm6OJ23AxHmD6qUSWESsAAhoQAAKm8XEeD5nrjz5IJFYeBA")
     await message.reply_text(
         f"""<b>**Hello Friends**, {message.from_user.first_name}! 👋
-\nSaya 𝐂𝐚𝐧𝐝𝐮𝐌𝐮𝐬𝐢𝐜𝐁𝐨𝐭, Saya akan membantumu **memutar music** di Voice Chat Telegram Groups & Channel, dengan **fitur-fitur** yang menarik.
+\nSaya 𝐑𝐨𝐛𝐨𝐭𝐌𝐮𝐬𝐢𝐜𝐁𝐨𝐭, Saya akan membantumu **memutar music** di Voice Chat Telegram Groups & Channel, dengan **fitur-fitur** yang menarik.
 \n─────────────────────────────────
 \n𝑺𝒆𝒎𝒖𝒂 𝒐𝒓𝒂𝒏𝒈 𝒑𝒂𝒔𝒕𝒊 𝒎𝒂𝒕𝒊, 𝒕𝒂𝒑𝒊 𝒕𝒊𝒅𝒂𝒌 𝒔𝒆𝒎𝒖𝒂 𝒐𝒓𝒂𝒏𝒈 𝒅𝒂𝒑𝒂𝒕 𝒎𝒆𝒎𝒃𝒆𝒓𝒊 𝒂𝒓𝒕𝒊. 𝑷𝒂𝒔𝒕𝒊𝒌𝒂𝒏 𝒉𝒊𝒅𝒖𝒑𝒎𝒖 𝒃𝒆𝒓𝒂𝒓𝒕𝒊/𝒃𝒆𝒓𝒎𝒂𝒏𝒇𝒂𝒂𝒕 𝒖𝒏𝒕𝒖𝒌 𝒐𝒓𝒂𝒏𝒈 𝒍𝒂𝒊𝒏. 
 \n─────────────────────────────────
@@ -42,7 +42,7 @@ async def start(_, message: Message):
 
 @Client.on_message(filters.command("start") & ~filters.private & ~filters.channel)
 async def gstart(_, message: Message):
-      await message.reply_text("""✅ 𝐂𝐚𝐧𝐝𝐮𝐌𝐮𝐬𝐢𝐜𝐁𝐨𝐭 is online""",
+      await message.reply_text("""☑️ 𝐑𝐨𝐛𝐨𝐭𝐌𝐮𝐬𝐢𝐜𝐁𝐨𝐭 is online""",
       reply_markup=InlineKeyboardMarkup(
             [
                 [
