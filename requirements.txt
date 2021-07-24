@@ -18,3 +18,5 @@ psutil
 wget
 python-decouple
 telethon==1.22.0
+tswift
+© 2021 GitHub, Inc.
